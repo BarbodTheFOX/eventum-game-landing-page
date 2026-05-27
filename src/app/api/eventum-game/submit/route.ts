@@ -1,16 +1,24 @@
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  let payload: unknown;
+  let payload: Record<string, unknown>;
 
   try {
-    payload = await request.json();
+    const body = await request.json();
+    payload = body && typeof body === "object" ? body : {};
   } catch {
     return NextResponse.json(
       { success: false, saved: false, warning: "Invalid JSON payload" },
       { status: 400 },
     );
   }
+
+  const submissionPayload = {
+    ...payload,
+    userAgent:
+      payload.userAgent ?? request.headers.get("user-agent") ?? "unknown",
+    source: payload.source ?? "eventum-game-landing",
+  };
 
   const webhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
 
@@ -28,7 +36,7 @@ export async function POST(request: Request) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(submissionPayload),
     });
 
     if (!response.ok) {

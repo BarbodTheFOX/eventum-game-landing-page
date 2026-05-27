@@ -18,11 +18,11 @@ export function SectionTitle({
       }`}
     >
       {eyebrow ? (
-        <p className="mb-3 text-sm font-semibold tracking-[0.24em] text-violet-600">
+        <p className="font-latin mb-3 text-sm font-black tracking-[0.24em] text-violet-600">
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="text-3xl font-black leading-tight text-slate-950 md:text-5xl">
+      <h2 className="text-balance text-3xl font-black leading-tight text-slate-950 md:text-5xl">
         {title}
       </h2>
       {text ? (

@@ -9,11 +9,11 @@ export function TelegramCTA({ adminUrl }: TelegramCTAProps) {
         <button
           type="button"
           disabled
-          className="inline-flex min-h-14 w-full items-center justify-center rounded-full bg-slate-200 px-6 font-bold text-slate-500 sm:w-auto"
+          className="inline-flex min-h-14 w-full items-center justify-center rounded-full bg-slate-200/90 px-6 font-black text-slate-500 sm:w-auto"
         >
           پیام به ادمین ایونتوم
         </button>
-        <p className="mt-2 text-xs text-slate-500">
+        <p className="mt-2 text-xs font-bold text-slate-500">
           لینک ادمین هنوز تنظیم نشده است.
         </p>
       </div>
@@ -25,7 +25,7 @@ export function TelegramCTA({ adminUrl }: TelegramCTAProps) {
       href={adminUrl}
       target="_blank"
       rel="noreferrer"
-      className="inline-flex min-h-14 w-full items-center justify-center rounded-full bg-slate-950 px-6 font-bold text-white transition hover:-translate-y-0.5 hover:bg-violet-950 sm:w-auto"
+      className="eventum-focus inline-flex min-h-14 w-full items-center justify-center rounded-full bg-gradient-to-l from-slate-950 via-violet-950 to-violet-700 px-6 font-black text-white shadow-[0_20px_54px_rgba(76,29,149,0.24)] transition hover:-translate-y-0.5 sm:w-auto"
     >
       پیام به ادمین ایونتوم
     </a>

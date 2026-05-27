@@ -9,6 +9,7 @@ export type EventumGamePathConfig = {
   mission: string;
   image: string;
   accent: string;
+  icon: string;
   description: string;
 };
 
@@ -22,6 +23,7 @@ export const eventumGamePaths: Record<PathType, EventumGamePathConfig> = {
     mission: "تصمیم‌گیری با وضوح کافی و تبدیل فکر به حرکت",
     image: "strategist.png",
     accent: "from-violet-500/20 to-cyan-400/20",
+    icon: "S",
     description:
       "تو بیشتر به مسیر Strategist نزدیک هستی. یعنی قبل از حرکت، مسئله را دقیق بررسی می‌کنی و دوست داری تصویر واضح‌تری از مسیر داشته باشی. چالش اصلی تو این است که تصمیم‌ها بیش از حد باز نمانند و فکر زودتر به حرکت واقعی تبدیل شود.",
   },
@@ -34,6 +36,7 @@ export const eventumGamePaths: Record<PathType, EventumGamePathConfig> = {
     mission: "شروع کردن، ادامه دادن و ساختن خروجی واقعی",
     image: "executor.png",
     accent: "from-cyan-400/20 to-fuchsia-400/20",
+    icon: "E",
     description:
       "تو بیشتر به مسیر Executor نزدیک هستی. یعنی توان حرکت، شروع کردن و جلو بردن کارها در تو فعال است. چالش اصلی تو این است که ریتمت را حفظ کنی، در شروع گیر نکنی و کاری را که آغاز می‌کنی به خروجی واقعی برسانی.",
   },
@@ -46,6 +49,7 @@ export const eventumGamePaths: Record<PathType, EventumGamePathConfig> = {
     mission: "نگه داشتن تمرکز و تبدیل ایده به نتیجه واقعی",
     image: "visionary.png",
     accent: "from-fuchsia-400/20 to-violet-500/20",
+    icon: "V",
     description:
       "تو بیشتر به مسیر Visionary نزدیک هستی. یعنی ایده‌ها، مسیرهای تازه و نگاه خلاقانه در تو پررنگ است. چالش اصلی تو این است که بین مسیرهای مختلف پخش نشوی و ایده‌ها را به خروجی واقعی تبدیل کنی.",
   },

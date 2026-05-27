@@ -10,7 +10,10 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        latin: ["var(--font-latin)"],
+        persian: ["var(--font-persian)"],
         sans: [
+          "var(--font-persian)",
           "Vazirmatn",
           "IRANSans",
           "Segoe UI",

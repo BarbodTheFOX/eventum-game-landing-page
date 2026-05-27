@@ -14,6 +14,8 @@ export type EventumGameSubmissionPayload = {
   isBlended: boolean;
   submittedAt: string;
   status: "submitted";
+  userAgent: string;
+  source: "eventum-game-landing";
 };
 
 export type EventumGameSubmissionResponse = {

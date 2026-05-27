@@ -1,6 +1,8 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import { FormEvent, useMemo, useState } from "react";
+import type { ReactNode } from "react";
 import { eventumGameQuestions } from "@/data/eventumGameQuestions";
 import {
   calculateEventumGameResult,
@@ -12,8 +14,11 @@ import {
   type EventumGameSubmissionPayload,
 } from "@/lib/submitEventumGameResult";
 import { GlassCard } from "./GlassCard";
+import { GradientButton } from "./GradientButton";
+import { ProgressBar } from "./ProgressBar";
 import { QuestionCard } from "./QuestionCard";
 import { ResultCard } from "./ResultCard";
+import { TestShell } from "./TestShell";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -99,6 +104,9 @@ export function TestForm() {
       ...result,
       submittedAt: new Date().toISOString(),
       status: "submitted",
+      userAgent:
+        typeof navigator === "undefined" ? "unknown" : navigator.userAgent,
+      source: "eventum-game-landing",
     };
 
     setIsSubmitting(true);
@@ -106,11 +114,17 @@ export function TestForm() {
 
     try {
       const response = await submitEventumGameResult(payload);
-      if (response.warning) {
-        setSubmissionWarning(response.warning);
+      if (!response.saved && response.warning) {
+        console.warn("Eventum Game submission warning:", response.warning);
+        setSubmissionWarning(
+          "نتیجه تست نمایش داده شد. اگر ثبت نهایی انجام نشد، نتیجه را کپی کن و برای ادمین بفرست.",
+        );
       }
-    } catch {
-      setSubmissionWarning("Could not save to Google Sheets");
+    } catch (error) {
+      console.warn("Eventum Game submission failed:", error);
+      setSubmissionWarning(
+        "نتیجه تست نمایش داده شد. اگر ثبت نهایی انجام نشد، نتیجه را کپی کن و برای ادمین بفرست.",
+      );
     } finally {
       setResultPayload(payload);
       setIsSubmitting(false);
@@ -118,128 +132,147 @@ export function TestForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <GlassCard className="p-5 md:p-7">
-        <div className="grid gap-4 md:grid-cols-3">
-          <label className="block">
-            <span className="mb-2 block text-sm font-bold text-slate-700">
-              نام
-            </span>
-            <input
-              value={name}
-              onChange={(event) => setName(event.target.value)}
-              required
-              className="min-h-14 w-full rounded-2xl border border-white/80 bg-white/80 px-4 text-right text-slate-950 outline-none transition focus:border-violet-400"
-              placeholder="نام تو"
-            />
-          </label>
-          <label className="block">
-            <span className="mb-2 block text-sm font-bold text-slate-700">
-              ایمیل
-            </span>
-            <input
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
-              type="email"
-              dir="ltr"
-              className="min-h-14 w-full rounded-2xl border border-white/80 bg-white/80 px-4 text-left text-slate-950 outline-none transition focus:border-violet-400"
-              placeholder="you@example.com"
-            />
-          </label>
-          <label className="block">
-            <span className="mb-2 block text-sm font-bold text-slate-700">
-              آیدی تلگرام
-            </span>
-            <input
-              value={telegramId}
-              onChange={(event) => setTelegramId(event.target.value)}
-              required
-              dir="ltr"
-              className="min-h-14 w-full rounded-2xl border border-white/80 bg-white/80 px-4 text-left text-slate-950 outline-none transition focus:border-violet-400"
-              placeholder="@eventum"
-            />
-          </label>
-        </div>
+    <TestShell>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <GlassCard variant="subtle" className="p-5 md:p-7">
+          <div className="mb-5 flex flex-col justify-between gap-2 md:flex-row md:items-center">
+            <div>
+              <p className="font-latin text-xs font-black tracking-[0.24em] text-violet-600">
+                PLAYER INFO
+              </p>
+              <h2 className="mt-1 text-xl font-black text-slate-950">
+                اطلاعات شروع بازی
+              </h2>
+            </div>
+            <p className="text-sm leading-7 text-slate-500">
+              اطلاعات شما فقط برای ثبت نتیجه تست و ادامه بازی ایونتوم استفاده
+              می‌شود.
+            </p>
+          </div>
 
-        <p className="mt-5 text-sm leading-7 text-slate-500">
-          اطلاعات شما فقط برای ثبت نتیجه تست و ادامه بازی ایونتوم استفاده
-          می‌شود.
-        </p>
-        <label className="mt-4 flex cursor-pointer items-start gap-3 text-sm leading-7 text-slate-700">
-          <input
-            type="checkbox"
-            checked={consent}
-            onChange={(event) => setConsent(event.target.checked)}
-            className="mt-1 h-5 w-5 rounded border-violet-300 accent-violet-700"
-            required
-          />
-          <span>
-            می‌پذیرم که اطلاعاتم برای ثبت نتیجه تست و ادامه بازی ایونتوم ذخیره
-            شود.
-          </span>
-        </label>
-      </GlassCard>
+          <div className="grid gap-4 md:grid-cols-3">
+            <Field label="نام">
+              <input
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                required
+                className="eventum-focus min-h-14 w-full rounded-[1.25rem] border border-white/75 bg-white/62 px-4 text-right text-slate-950 shadow-inner backdrop-blur-xl transition"
+                placeholder="نام تو"
+              />
+            </Field>
+            <Field label="ایمیل">
+              <input
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                required
+                type="email"
+                dir="ltr"
+                className="eventum-focus min-h-14 w-full rounded-[1.25rem] border border-white/75 bg-white/62 px-4 text-left text-slate-950 shadow-inner backdrop-blur-xl transition"
+                placeholder="you@example.com"
+              />
+            </Field>
+            <Field label="آیدی تلگرام">
+              <input
+                value={telegramId}
+                onChange={(event) => setTelegramId(event.target.value)}
+                required
+                dir="ltr"
+                className="eventum-focus min-h-14 w-full rounded-[1.25rem] border border-white/75 bg-white/62 px-4 text-left text-slate-950 shadow-inner backdrop-blur-xl transition"
+                placeholder="@eventum"
+              />
+            </Field>
+          </div>
 
-      <div className="rounded-full border border-white/80 bg-white/60 p-2 backdrop-blur">
-        <div className="flex items-center justify-between px-2 pb-2 text-sm font-bold text-slate-600">
-          <span>
-            سؤال {currentIndex + 1} از {eventumGameQuestions.length}
-          </span>
-          <span>{answeredCount} پاسخ ثبت شده</span>
-        </div>
-        <div className="h-2 overflow-hidden rounded-full bg-slate-200">
-          <div
-            className="h-full rounded-full bg-gradient-to-l from-cyan-400 to-violet-600 transition-all duration-300"
-            style={{ width: `${progress}%` }}
+          <label className="mt-5 flex cursor-pointer items-start gap-3 rounded-[1.25rem] border border-white/70 bg-white/42 p-4 text-sm leading-7 text-slate-700 backdrop-blur-xl">
+            <input
+              type="checkbox"
+              checked={consent}
+              onChange={(event) => setConsent(event.target.checked)}
+              className="mt-1 h-5 w-5 rounded border-violet-300 accent-violet-700"
+              required
+            />
+            <span>
+              می‌پذیرم که اطلاعاتم برای ثبت نتیجه تست و ادامه بازی ایونتوم
+              ذخیره شود.
+            </span>
+          </label>
+        </GlassCard>
+
+        <div className="sticky top-3 z-20">
+          <ProgressBar
+            value={progress}
+            label={`سؤال ${currentIndex + 1} از ${eventumGameQuestions.length}`}
+            meta={`${answeredCount} پاسخ ثبت شده`}
           />
         </div>
-      </div>
 
-      <QuestionCard
-        question={currentQuestion}
-        value={answers[currentQuestion.id]}
-        onChange={updateAnswer}
-      />
-
-      {error ? (
-        <p className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-bold text-rose-700">
-          {error}
-        </p>
-      ) : null}
-
-      <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
-        <button
-          type="button"
-          onClick={goBack}
-          disabled={currentIndex === 0 || isSubmitting}
-          className="min-h-14 rounded-full border border-violet-200 bg-white/75 px-6 font-bold text-slate-800 transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-45"
-        >
-          قبلی
-        </button>
-        {isLastQuestion ? (
-          <button
-            type="submit"
-            disabled={
-              isSubmitting ||
-              Boolean(infoError) ||
-              answeredCount !== eventumGameQuestions.length
-            }
-            className="min-h-14 rounded-full bg-slate-950 px-8 font-bold text-white transition hover:bg-violet-950 disabled:cursor-not-allowed disabled:opacity-45"
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentQuestion.id}
+            initial={{ opacity: 0, x: 24, filter: "blur(6px)" }}
+            animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+            exit={{ opacity: 0, x: -24, filter: "blur(6px)" }}
+            transition={{ duration: 0.28, ease: "easeOut" }}
           >
-            {isSubmitting ? "در حال ثبت..." : "نمایش نتیجه"}
-          </button>
-        ) : (
+            <QuestionCard
+              question={currentQuestion}
+              value={answers[currentQuestion.id]}
+              onChange={updateAnswer}
+            />
+          </motion.div>
+        </AnimatePresence>
+
+        {error ? (
+          <p className="rounded-[1.25rem] border border-rose-200 bg-rose-50/88 px-4 py-3 text-sm font-black text-rose-700">
+            {error}
+          </p>
+        ) : null}
+
+        <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
           <button
             type="button"
-            onClick={goNext}
-            disabled={isSubmitting}
-            className="min-h-14 rounded-full bg-slate-950 px-8 font-bold text-white transition hover:bg-violet-950 disabled:cursor-not-allowed disabled:opacity-45"
+            onClick={goBack}
+            disabled={currentIndex === 0 || isSubmitting}
+            className="eventum-focus min-h-14 rounded-full border border-violet-200 bg-white/68 px-6 font-black text-slate-800 shadow-[0_16px_44px_rgba(76,29,149,0.08)] backdrop-blur-xl transition hover:bg-white/88 disabled:cursor-not-allowed disabled:opacity-45"
           >
-            بعدی
+            قبلی
           </button>
-        )}
-      </div>
-    </form>
+          {isLastQuestion ? (
+            <GradientButton
+              type="submit"
+              disabled={
+                isSubmitting ||
+                Boolean(infoError) ||
+                answeredCount !== eventumGameQuestions.length
+              }
+              className="sm:min-w-44"
+            >
+              {isSubmitting ? "در حال ثبت..." : "نمایش نتیجه"}
+            </GradientButton>
+          ) : (
+            <GradientButton onClick={goNext} disabled={isSubmitting} className="sm:min-w-36">
+              بعدی
+            </GradientButton>
+          )}
+        </div>
+      </form>
+    </TestShell>
+  );
+}
+
+function Field({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-2 block text-sm font-black text-slate-700">
+        {label}
+      </span>
+      {children}
+    </label>
   );
 }

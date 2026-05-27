@@ -1,44 +1,48 @@
-import Link from "next/link";
-import { EventumVisual } from "./EventumVisual";
+import { AnimatedReveal } from "./AnimatedReveal";
+import { FloatingVisual } from "./FloatingVisual";
+import { GradientButton } from "./GradientButton";
 import { GlassCard } from "./GlassCard";
-import { MotionReveal } from "./MotionReveal";
+import { SectionShell } from "./SectionShell";
 
 export function TestIntroSection() {
   return (
-    <section className="px-5 pb-24 pt-16 md:px-8 md:pb-32 md:pt-24">
-      <div className="mx-auto max-w-7xl">
-        <MotionReveal>
-          <GlassCard className="grid items-center gap-8 overflow-hidden p-6 md:grid-cols-[0.9fr_1.1fr] md:p-10">
-            <div className="relative order-2 md:order-1">
-              <EventumVisual
-                fileName="test-visual.png"
-                alt="تصویر شروع تست ایونتوم گیم"
-                width={860}
-                height={620}
-                className="aspect-[4/3] w-full rounded-[2rem]"
-              />
-            </div>
-            <div className="order-1 text-right md:order-2">
-              <p className="mb-3 text-sm font-bold tracking-[0.22em] text-violet-600">
-                تست مسیر
+    <SectionShell className="pb-24 md:pb-36">
+      <AnimatedReveal>
+        <GlassCard
+          variant="elevated"
+          gradientBorder
+          className="overflow-hidden p-4 md:p-8"
+        >
+          <div className="grid items-center gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+            <FloatingVisual
+              fileName="test-visual.png"
+              alt="تصویر شروع تست ایونتوم گیم"
+              width={860}
+              height={620}
+              chips={["۱۸ سؤال", "نتیجه فوری"]}
+            />
+            <div className="p-2 text-right md:p-6">
+              <p className="font-latin mb-3 text-sm font-black tracking-[0.24em] text-violet-600">
+                TEST GATE
               </p>
-              <h2 className="text-3xl font-black leading-tight text-slate-950 md:text-5xl">
+              <h2 className="text-balance text-3xl font-black leading-tight text-slate-950 md:text-5xl">
                 حالا مسیرت را پیدا کن
               </h2>
-              <p className="mt-5 max-w-xl text-lg leading-9 text-slate-600">
-                این تست برای برچسب زدن به تو نیست. فقط کمک می‌کند مسیر شروع تو
-                در بازی مشخص شود.
-              </p>
-              <Link
-                href="/eventum-game/test"
-                className="mt-8 inline-flex min-h-14 items-center justify-center rounded-full bg-violet-700 px-8 text-base font-bold text-white shadow-[0_18px_45px_rgba(109,40,217,0.24)] transition hover:-translate-y-0.5 hover:bg-violet-800"
-              >
-                شروع تست
-              </Link>
+              <GlassCard variant="subtle" className="mt-6 p-5">
+                <p className="text-lg leading-9 text-slate-700">
+                  این تست برای برچسب زدن به تو نیست. فقط کمک می‌کند مسیر شروع
+                  تو در بازی مشخص شود.
+                </p>
+              </GlassCard>
+              <div className="mt-7">
+                <GradientButton href="/eventum-game/test" className="w-full sm:w-auto">
+                  شروع تست
+                </GradientButton>
+              </div>
             </div>
-          </GlassCard>
-        </MotionReveal>
-      </div>
-    </section>
+          </div>
+        </GlassCard>
+      </AnimatedReveal>
+    </SectionShell>
   );
 }
