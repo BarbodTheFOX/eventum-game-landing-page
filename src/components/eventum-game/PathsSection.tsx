@@ -14,7 +14,7 @@ export function PathsSection() {
           text="هر مسیر یک دشمن اصلی و یک مأموریت عملی دارد؛ کارت‌ها فقط شکل متفاوتی از یک سیستم واحد هستند."
         />
       </AnimatedReveal>
-      <div className="grid gap-5 lg:grid-cols-3">
+      <div className="grid items-stretch gap-5 lg:grid-cols-3">
         {orderedEventumGamePaths.map((path, index) => (
           <AnimatedReveal key={path.type} delay={index * 0.08}>
             <PathCard path={path} index={index} />

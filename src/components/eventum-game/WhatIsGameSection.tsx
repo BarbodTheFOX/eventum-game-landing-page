@@ -25,7 +25,7 @@ export function WhatIsGameSection() {
 
         <AnimatedReveal delay={0.08}>
           <LiquidGlassCard className="p-6 md:p-8">
-            <p className="text-lg leading-10 text-slate-700">
+            <p className="text-lg leading-10 text-[#E9DFFF]">
               ایونتوم گیم یک چالش روزانه است. اول مسیرت مشخص می‌شود، بعد هر
               روز با یک روایت کوتاه و یک تسک عملی جلو می‌روی. در طول مسیر XP
               می‌گیری، Stars جمع می‌کنی، آرشیوهای هفتگی را باز می‌کنی و وارد
@@ -38,10 +38,12 @@ export function WhatIsGameSection() {
                   variant="subtle"
                   className="p-4 text-center"
                 >
-                  <span className="font-latin text-xs font-black tracking-[0.2em] text-cyan-600">
+                  <span className="font-latin text-xs font-black tracking-[0.2em] text-[#67E8F9]">
                     0{index + 1}
                   </span>
-                  <p className="mt-2 text-sm font-black text-slate-800">{item}</p>
+                  <p className="mt-2 text-sm font-black text-[#F8F5FF]">
+                    {item}
+                  </p>
                 </GlassCard>
               ))}
             </div>

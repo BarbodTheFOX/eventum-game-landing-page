@@ -22,6 +22,13 @@ export type EventumGameSubmissionResponse = {
   success: boolean;
   saved: boolean;
   warning?: string;
+  debugStatus?: {
+    hasWebhook: boolean;
+    missingFields: string[];
+    webhookStatus?: number;
+    webhookResponseText?: string;
+    error?: string;
+  };
 };
 
 export async function submitEventumGameResult(

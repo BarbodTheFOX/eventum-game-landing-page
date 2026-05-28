@@ -3,8 +3,27 @@
 @tailwind utilities;
 
 :root {
-  --background: #f7f8ff;
-  --foreground: #101322;
+  --background: #080012;
+  --background-deep: #080012;
+  --background-mid: #12001f;
+  --background-soft: #1a0633;
+  --foreground: #f8f5ff;
+  --text-primary: #f8f5ff;
+  --text-secondary: #e9dfff;
+  --text-muted: #bfafe6;
+  --purple-primary: #7c2dff;
+  --purple-secondary: #8b5cf6;
+  --purple-bright: #a855f7;
+  --purple-glow: #c084fc;
+  --purple-soft: #d8b4fe;
+  --electric-cyan: #22d3ee;
+  --electric-cyan-soft: #67e8f9;
+  --glass-bg: rgba(255, 255, 255, 0.07);
+  --glass-bg-strong: rgba(255, 255, 255, 0.1);
+  --glass-purple: rgba(124, 45, 255, 0.14);
+  --glass-border: rgba(216, 180, 254, 0.35);
+  --glass-border-soft: rgba(255, 255, 255, 0.18);
+  --focus-ring: rgba(192, 132, 252, 0.42);
   --font-latin: "Poppins", "Inter", "Segoe UI", Arial, sans-serif;
   --font-persian: "Vazirmatn", "IRANSans", "Segoe UI", Tahoma, Arial, sans-serif;
 }
@@ -32,18 +51,20 @@ select {
 }
 
 ::selection {
-  background: rgba(124, 58, 237, 0.2);
-  color: #1e1238;
+  background: rgba(192, 132, 252, 0.36);
+  color: #ffffff;
 }
 
 .eventum-page {
   position: relative;
+  min-height: 100vh;
   background:
-    radial-gradient(circle at 10% 4%, rgba(34, 211, 238, 0.24), transparent 28rem),
-    radial-gradient(circle at 86% 8%, rgba(168, 85, 247, 0.2), transparent 34rem),
-    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.9), transparent 30rem),
-    linear-gradient(180deg, #fbfcff 0%, #f7f4ff 42%, #f6fdff 100%);
+    radial-gradient(circle at 18% 4%, rgba(124, 45, 255, 0.34), transparent 28rem),
+    radial-gradient(circle at 82% 14%, rgba(34, 211, 238, 0.15), transparent 30rem),
+    radial-gradient(circle at 50% 42%, rgba(168, 85, 247, 0.12), transparent 34rem),
+    linear-gradient(180deg, #080012 0%, #12001f 44%, #080012 100%);
   isolation: isolate;
+  overflow-x: hidden;
 }
 
 .eventum-page::before {
@@ -52,12 +73,25 @@ select {
   position: fixed;
   inset: 0;
   z-index: -1;
-  opacity: 0.42;
+  opacity: 0.34;
   background-image:
-    linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(14, 165, 233, 0.035) 1px, transparent 1px);
-  background-size: 44px 44px;
+    linear-gradient(rgba(216, 180, 254, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(103, 232, 249, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
   mask-image: linear-gradient(to bottom, black, transparent 75%);
+}
+
+.eventum-page::after {
+  pointer-events: none;
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.16;
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.5) 0 1px, transparent 1px),
+    radial-gradient(circle at 72% 48%, rgba(216, 180, 254, 0.45) 0 1px, transparent 1px);
+  background-size: 22px 22px, 34px 34px;
 }
 
 .font-latin {
@@ -67,15 +101,16 @@ select {
 @layer components {
   .liquid-glass {
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.72);
+    border: 1px solid var(--glass-border);
     background:
-      linear-gradient(135deg, rgba(255, 255, 255, 0.74), rgba(255, 255, 255, 0.42)),
-      linear-gradient(145deg, rgba(139, 92, 246, 0.08), rgba(34, 211, 238, 0.08));
+      linear-gradient(135deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.045)),
+      linear-gradient(145deg, rgba(124, 45, 255, 0.16), rgba(34, 211, 238, 0.055));
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.84),
-      0 24px 80px rgba(76, 29, 149, 0.1),
-      0 10px 34px rgba(14, 165, 233, 0.08);
-    backdrop-filter: blur(24px) saturate(150%);
+      inset 0 1px 0 rgba(255, 255, 255, 0.16),
+      inset 0 -28px 80px rgba(124, 45, 255, 0.05),
+      0 28px 90px rgba(0, 0, 0, 0.34),
+      0 0 70px rgba(124, 45, 255, 0.12);
+    backdrop-filter: blur(28px) saturate(150%);
   }
 
   .liquid-glass::before {
@@ -84,15 +119,44 @@ select {
     position: absolute;
     inset: 1px;
     border-radius: inherit;
-    background: linear-gradient(145deg, rgba(255, 255, 255, 0.48), transparent 46%);
-    opacity: 0.7;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.16), transparent 44%);
+    opacity: 0.78;
   }
 
   .liquid-border {
     background:
-      linear-gradient(#ffffff99, #ffffff66) padding-box,
-      linear-gradient(135deg, rgba(124, 58, 237, 0.42), rgba(34, 211, 238, 0.38), rgba(255, 255, 255, 0.65)) border-box;
+      linear-gradient(135deg, rgba(18, 0, 31, 0.76), rgba(26, 6, 51, 0.62)) padding-box,
+      linear-gradient(135deg, rgba(216, 180, 254, 0.55), rgba(124, 45, 255, 0.56), rgba(34, 211, 238, 0.34)) border-box;
     border: 1px solid transparent;
+  }
+
+  .glass-panel,
+  .glass-card,
+  .liquid-card {
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
+      0 24px 80px rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(24px) saturate(150%);
+  }
+
+  .purple-glow {
+    box-shadow:
+      0 0 0 1px rgba(216, 180, 254, 0.24),
+      0 24px 90px rgba(124, 45, 255, 0.22),
+      0 0 80px rgba(192, 132, 252, 0.1);
+  }
+
+  .gradient-button {
+    background: linear-gradient(135deg, #7c2dff 0%, #a855f7 52%, #22d3ee 140%);
+    box-shadow:
+      0 18px 46px rgba(124, 45, 255, 0.32),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  }
+
+  .section-shell {
+    padding-block: clamp(4rem, 7vw, 8rem);
   }
 
   .eventum-focus {
@@ -101,17 +165,25 @@ select {
 
   .eventum-focus:focus-visible {
     box-shadow:
-      0 0 0 4px rgba(124, 58, 237, 0.16),
-      0 0 0 1px rgba(124, 58, 237, 0.5);
+      0 0 0 4px rgba(192, 132, 252, 0.18),
+      0 0 0 1px var(--focus-ring),
+      0 0 32px rgba(124, 45, 255, 0.32);
   }
 }
 
 @layer utilities {
   .soft-noise {
     background-image:
-      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.48) 0 1px, transparent 1px),
-      radial-gradient(circle at 80% 30%, rgba(124, 58, 237, 0.08) 0 1px, transparent 1px);
+      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.14) 0 1px, transparent 1px),
+      radial-gradient(circle at 80% 30%, rgba(216, 180, 254, 0.12) 0 1px, transparent 1px);
     background-size: 18px 18px, 28px 28px;
+  }
+
+  .noise-overlay {
+    background-image:
+      radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px),
+      radial-gradient(circle at 72% 48%, rgba(216, 180, 254, 0.12) 0 1px, transparent 1px);
+    background-size: 22px 22px, 34px 34px;
   }
 
   .text-balance {

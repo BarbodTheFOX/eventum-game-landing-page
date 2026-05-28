@@ -44,7 +44,7 @@ const steps = [
 
 export function HowItWorksSection() {
   return (
-    <SectionShell id="how-it-works" className="py-20 md:py-32">
+    <SectionShell id="how-it-works">
       <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14">
         <div className="lg:sticky lg:top-8 lg:h-fit">
           <AnimatedReveal>
@@ -55,9 +55,9 @@ export function HowItWorksSection() {
                 title="از تست تا مرحله بعد"
                 text="جریان بازی تکه‌تکه جلو می‌رود؛ هر قدم کوتاه است، اما حس پیشروی را زنده نگه می‌دارد."
               />
-              <div className="mt-8 overflow-hidden rounded-[1.6rem] border border-white/70 bg-white/48 p-4">
-                <div className="h-2 rounded-full bg-gradient-to-l from-cyan-300 via-violet-400 to-fuchsia-400" />
-                <p className="mt-4 text-sm leading-7 text-slate-600">
+              <div className="mt-8 overflow-hidden rounded-[1.6rem] border border-[#D8B4FE]/22 bg-white/[0.055] p-4">
+                <div className="h-2 rounded-full bg-gradient-to-l from-[#22D3EE] via-[#8B5CF6] to-[#A855F7]" />
+                <p className="mt-4 text-sm leading-7 text-[#BFAFE6]">
                   این بخش مثل نقشه مسیر عمل می‌کند: اول شناخت، بعد حرکت، بعد
                   باز شدن لایه‌های بعدی بازی.
                 </p>
@@ -67,11 +67,11 @@ export function HowItWorksSection() {
         </div>
 
         <div className="relative space-y-4">
-          <div className="absolute right-6 top-4 hidden h-[calc(100%-2rem)] w-px bg-gradient-to-b from-violet-300 via-cyan-300 to-transparent md:block" />
+          <div className="absolute right-6 top-4 hidden h-[calc(100%-2rem)] w-px bg-gradient-to-b from-[#C084FC] via-[#22D3EE]/70 to-transparent md:block" />
           {steps.map((step, index) => (
             <AnimatedReveal key={step.title} delay={index * 0.04}>
               <div className="relative md:pr-14">
-                <span className="absolute right-4 top-8 hidden h-4 w-4 rounded-full border border-white bg-violet-500 shadow-[0_0_0_8px_rgba(124,58,237,0.1)] md:block" />
+                <span className="absolute right-4 top-8 hidden h-4 w-4 rounded-full border border-[#F8F5FF]/60 bg-[#8B5CF6] shadow-[0_0_0_8px_rgba(124,45,255,0.12),0_0_28px_rgba(192,132,252,0.45)] md:block" />
                 <StepCard
                   number={String(index + 1).padStart(2, "0")}
                   title={step.title}

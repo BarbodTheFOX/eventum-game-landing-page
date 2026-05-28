@@ -21,6 +21,8 @@ import { ResultCard } from "./ResultCard";
 import { TestShell } from "./TestShell";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const cleanSubmissionWarning =
+  "نتیجه تست نمایش داده شد. اگر ثبت نهایی انجام نشد، نتیجه را کپی کن و برای ادمین بفرست.";
 
 export function TestForm() {
   const [name, setName] = useState("");
@@ -44,7 +46,8 @@ export function TestForm() {
     if (!name.trim()) return "نام را وارد کن.";
     if (!emailPattern.test(email.trim())) return "ایمیل معتبر وارد کن.";
     if (!telegramId.trim()) return "آیدی تلگرام را وارد کن.";
-    if (!consent) return "برای ادامه باید ذخیره اطلاعات را بپذیری.";
+    if (!consent)
+      return "برای ادامه باید ذخیره اطلاعات را بپذیری.";
     return "";
   }, [consent, email, name, telegramId]);
 
@@ -116,15 +119,11 @@ export function TestForm() {
       const response = await submitEventumGameResult(payload);
       if (!response.saved && response.warning) {
         console.warn("Eventum Game submission warning:", response.warning);
-        setSubmissionWarning(
-          "نتیجه تست نمایش داده شد. اگر ثبت نهایی انجام نشد، نتیجه را کپی کن و برای ادمین بفرست.",
-        );
+        setSubmissionWarning(cleanSubmissionWarning);
       }
     } catch (error) {
       console.warn("Eventum Game submission failed:", error);
-      setSubmissionWarning(
-        "نتیجه تست نمایش داده شد. اگر ثبت نهایی انجام نشد، نتیجه را کپی کن و برای ادمین بفرست.",
-      );
+      setSubmissionWarning(cleanSubmissionWarning);
     } finally {
       setResultPayload(payload);
       setIsSubmitting(false);
@@ -134,17 +133,20 @@ export function TestForm() {
   return (
     <TestShell>
       <form onSubmit={handleSubmit} className="space-y-6">
-        <GlassCard variant="subtle" className="p-5 md:p-7">
-          <div className="mb-5 flex flex-col justify-between gap-2 md:flex-row md:items-center">
+        <GlassCard
+          variant="subtle"
+          className="border-[#D8B4FE]/22 bg-white/[0.065] p-5 md:p-7"
+        >
+          <div className="mb-6 flex flex-col justify-between gap-3 md:flex-row md:items-start">
             <div>
-              <p className="font-latin text-xs font-black tracking-[0.24em] text-violet-600">
+              <p className="font-latin text-xs font-black tracking-[0.24em] text-[#67E8F9]">
                 PLAYER INFO
               </p>
-              <h2 className="mt-1 text-xl font-black text-slate-950">
+              <h2 className="mt-2 text-xl font-black text-[#F8F5FF] md:text-2xl">
                 اطلاعات شروع بازی
               </h2>
             </div>
-            <p className="text-sm leading-7 text-slate-500">
+            <p className="max-w-xl text-sm leading-7 text-[#BFAFE6] md:text-left">
               اطلاعات شما فقط برای ثبت نتیجه تست و ادامه بازی ایونتوم استفاده
               می‌شود.
             </p>
@@ -156,7 +158,7 @@ export function TestForm() {
                 value={name}
                 onChange={(event) => setName(event.target.value)}
                 required
-                className="eventum-focus min-h-14 w-full rounded-[1.25rem] border border-white/75 bg-white/62 px-4 text-right text-slate-950 shadow-inner backdrop-blur-xl transition"
+                className="eventum-focus min-h-14 w-full rounded-[1.25rem] border border-[#D8B4FE]/24 bg-[#080012]/55 px-4 text-right text-[#F8F5FF] shadow-inner shadow-black/20 outline-none backdrop-blur-xl transition placeholder:text-[#BFAFE6]/45 hover:border-[#D8B4FE]/40 focus:border-[#C084FC]/75"
                 placeholder="نام تو"
               />
             </Field>
@@ -167,7 +169,7 @@ export function TestForm() {
                 required
                 type="email"
                 dir="ltr"
-                className="eventum-focus min-h-14 w-full rounded-[1.25rem] border border-white/75 bg-white/62 px-4 text-left text-slate-950 shadow-inner backdrop-blur-xl transition"
+                className="eventum-focus min-h-14 w-full rounded-[1.25rem] border border-[#D8B4FE]/24 bg-[#080012]/55 px-4 text-left text-[#F8F5FF] shadow-inner shadow-black/20 outline-none backdrop-blur-xl transition placeholder:text-[#BFAFE6]/45 hover:border-[#D8B4FE]/40 focus:border-[#C084FC]/75"
                 placeholder="you@example.com"
               />
             </Field>
@@ -177,18 +179,18 @@ export function TestForm() {
                 onChange={(event) => setTelegramId(event.target.value)}
                 required
                 dir="ltr"
-                className="eventum-focus min-h-14 w-full rounded-[1.25rem] border border-white/75 bg-white/62 px-4 text-left text-slate-950 shadow-inner backdrop-blur-xl transition"
+                className="eventum-focus min-h-14 w-full rounded-[1.25rem] border border-[#D8B4FE]/24 bg-[#080012]/55 px-4 text-left text-[#F8F5FF] shadow-inner shadow-black/20 outline-none backdrop-blur-xl transition placeholder:text-[#BFAFE6]/45 hover:border-[#D8B4FE]/40 focus:border-[#C084FC]/75"
                 placeholder="@eventum"
               />
             </Field>
           </div>
 
-          <label className="mt-5 flex cursor-pointer items-start gap-3 rounded-[1.25rem] border border-white/70 bg-white/42 p-4 text-sm leading-7 text-slate-700 backdrop-blur-xl">
+          <label className="mt-5 flex cursor-pointer items-start gap-3 rounded-[1.25rem] border border-[#D8B4FE]/22 bg-white/[0.055] p-4 text-sm leading-7 text-[#E9DFFF] backdrop-blur-xl transition hover:border-[#D8B4FE]/38 hover:bg-white/[0.075]">
             <input
               type="checkbox"
               checked={consent}
               onChange={(event) => setConsent(event.target.checked)}
-              className="mt-1 h-5 w-5 rounded border-violet-300 accent-violet-700"
+              className="mt-1 h-5 w-5 rounded border-[#D8B4FE]/50 bg-[#080012] accent-[#8B5CF6]"
               required
             />
             <span>
@@ -223,7 +225,7 @@ export function TestForm() {
         </AnimatePresence>
 
         {error ? (
-          <p className="rounded-[1.25rem] border border-rose-200 bg-rose-50/88 px-4 py-3 text-sm font-black text-rose-700">
+          <p className="rounded-[1.25rem] border border-rose-300/25 bg-rose-500/10 px-4 py-3 text-sm font-black text-rose-100 shadow-[0_18px_48px_rgba(244,63,94,0.12)]">
             {error}
           </p>
         ) : null}
@@ -233,7 +235,7 @@ export function TestForm() {
             type="button"
             onClick={goBack}
             disabled={currentIndex === 0 || isSubmitting}
-            className="eventum-focus min-h-14 rounded-full border border-violet-200 bg-white/68 px-6 font-black text-slate-800 shadow-[0_16px_44px_rgba(76,29,149,0.08)] backdrop-blur-xl transition hover:bg-white/88 disabled:cursor-not-allowed disabled:opacity-45"
+            className="eventum-focus min-h-14 rounded-full border border-[#D8B4FE]/28 bg-white/[0.065] px-6 font-black text-[#E9DFFF] shadow-[0_18px_48px_rgba(0,0,0,0.18)] backdrop-blur-xl transition hover:-translate-y-0.5 hover:border-[#D8B4FE]/45 hover:bg-white/[0.095] disabled:cursor-not-allowed disabled:opacity-45"
           >
             قبلی
           </button>
@@ -250,7 +252,11 @@ export function TestForm() {
               {isSubmitting ? "در حال ثبت..." : "نمایش نتیجه"}
             </GradientButton>
           ) : (
-            <GradientButton onClick={goNext} disabled={isSubmitting} className="sm:min-w-36">
+            <GradientButton
+              onClick={goNext}
+              disabled={isSubmitting}
+              className="sm:min-w-36"
+            >
               بعدی
             </GradientButton>
           )}
@@ -269,7 +275,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-sm font-black text-slate-700">
+      <span className="mb-2 block text-sm font-black text-[#E9DFFF]">
         {label}
       </span>
       {children}

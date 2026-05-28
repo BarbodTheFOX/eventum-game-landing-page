@@ -9,15 +9,15 @@ type GlassCardProps = ComponentPropsWithoutRef<"div"> & {
 
 const variants: Record<GlassCardVariant, string> = {
   default:
-    "liquid-glass rounded-[2rem] text-slate-900",
+    "liquid-glass rounded-[2rem] text-[#F8F5FF]",
   elevated:
-    "liquid-glass rounded-[2.25rem] text-slate-900 shadow-[0_34px_110px_rgba(76,29,149,0.16)]",
+    "liquid-glass purple-glow rounded-[2.25rem] text-[#F8F5FF]",
   dark:
-    "rounded-[2rem] border border-white/15 bg-slate-950/85 text-white shadow-[0_30px_90px_rgba(15,23,42,0.22)] backdrop-blur-2xl",
+    "rounded-[2rem] border border-[#D8B4FE]/25 bg-[#080012]/82 text-[#F8F5FF] shadow-[0_30px_90px_rgba(0,0,0,0.36)] backdrop-blur-2xl",
   subtle:
-    "rounded-[1.75rem] border border-white/65 bg-white/42 text-slate-900 shadow-[0_18px_55px_rgba(76,29,149,0.07)] backdrop-blur-xl",
+    "rounded-[1.75rem] border border-white/15 bg-white/[0.055] text-[#F8F5FF] shadow-[0_18px_55px_rgba(0,0,0,0.22)] backdrop-blur-xl",
   interactive:
-    "liquid-glass rounded-[2rem] text-slate-900 transition duration-300 hover:-translate-y-1 hover:shadow-[0_34px_100px_rgba(76,29,149,0.16)]",
+    "liquid-glass rounded-[2rem] text-[#F8F5FF] transition duration-300 hover:-translate-y-1 hover:border-[#D8B4FE]/55 hover:shadow-[0_34px_110px_rgba(124,45,255,0.24)]",
 };
 
 export function GlassCard({

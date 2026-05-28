@@ -6,9 +6,9 @@ type LiquidGlassCardProps = ComponentPropsWithoutRef<"div"> & {
 };
 
 const glows = {
-  violet: "bg-violet-300/30",
-  cyan: "bg-cyan-200/35",
-  mixed: "bg-gradient-to-br from-violet-300/25 to-cyan-200/30",
+  violet: "bg-[#7C2DFF]/30",
+  cyan: "bg-[#22D3EE]/20",
+  mixed: "bg-gradient-to-br from-[#7C2DFF]/28 to-[#22D3EE]/16",
 };
 
 export function LiquidGlassCard({
