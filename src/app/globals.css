@@ -26,6 +26,8 @@
   --focus-ring: rgba(192, 132, 252, 0.42);
   --font-latin: "Poppins", "Inter", "Segoe UI", Arial, sans-serif;
   --font-persian: "Vazirmatn", "IRANSans", "Segoe UI", Tahoma, Arial, sans-serif;
+  --mouse-x: 50vw;
+  --mouse-y: 24vh;
 }
 
 * {
@@ -55,7 +57,7 @@ select {
   color: #ffffff;
 }
 
-.eventum-page {
+.eventum-cosmic-shell {
   position: relative;
   min-height: 100vh;
   background:
@@ -67,31 +69,149 @@ select {
   overflow-x: hidden;
 }
 
-.eventum-page::before {
-  pointer-events: none;
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  opacity: 0.34;
-  background-image:
-    linear-gradient(rgba(216, 180, 254, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(103, 232, 249, 0.04) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: linear-gradient(to bottom, black, transparent 75%);
+.eventum-page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  background: transparent;
+  isolation: isolate;
+  overflow-x: hidden;
 }
 
-.eventum-page::after {
+.eventum-cosmic-bg {
   pointer-events: none;
-  content: "";
   position: fixed;
   inset: 0;
-  z-index: -1;
-  opacity: 0.16;
+  z-index: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 4%, rgba(124, 45, 255, 0.25), transparent 28rem),
+    radial-gradient(circle at 82% 14%, rgba(34, 211, 238, 0.12), transparent 30rem),
+    linear-gradient(180deg, #080012 0%, #12001f 46%, #080012 100%);
+}
+
+.eventum-dot-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.42;
   background-image:
-    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.5) 0 1px, transparent 1px),
-    radial-gradient(circle at 72% 48%, rgba(216, 180, 254, 0.45) 0 1px, transparent 1px);
-  background-size: 22px 22px, 34px 34px;
+    radial-gradient(circle at center, rgba(216, 180, 254, 0.2) 0 1px, transparent 1.25px),
+    radial-gradient(circle at center, rgba(34, 211, 238, 0.1) 0 1px, transparent 1.3px);
+  background-position: 0 0, 17px 23px;
+  background-size: 28px 28px, 58px 58px;
+  mask-image:
+    radial-gradient(circle at var(--mouse-x) var(--mouse-y), black 0 9rem, rgba(0, 0, 0, 0.72) 18rem, rgba(0, 0, 0, 0.42) 32rem, transparent 78%),
+    linear-gradient(to bottom, black, transparent 94%);
+  animation: eventumDotPulse 8s ease-in-out infinite;
+}
+
+.eventum-dot-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.7;
+  background:
+    radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(34, 211, 238, 0.18), transparent 18rem),
+    radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(216, 180, 254, 0.2) 0 1px, transparent 1.35px);
+  background-size: auto, 28px 28px;
+}
+
+.eventum-cursor-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0.9;
+  background:
+    radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(168, 85, 247, 0.22), transparent 260px),
+    radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(34, 211, 238, 0.12), transparent 190px);
+  transition: opacity 240ms ease;
+}
+
+.eventum-ambient-blob {
+  position: absolute;
+  width: min(42rem, 70vw);
+  height: min(42rem, 70vw);
+  border-radius: 999px;
+  filter: blur(70px);
+  opacity: 0.34;
+  transform: translate3d(0, 0, 0);
+}
+
+.eventum-ambient-blob-a {
+  right: -8rem;
+  top: 8vh;
+  background: radial-gradient(circle, rgba(124, 45, 255, 0.52), rgba(124, 45, 255, 0.08) 52%, transparent 72%);
+  animation: eventumBlobFloatA 18s ease-in-out infinite alternate;
+}
+
+.eventum-ambient-blob-b {
+  left: -10rem;
+  bottom: 6vh;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.28), rgba(168, 85, 247, 0.1) 54%, transparent 74%);
+  animation: eventumBlobFloatB 22s ease-in-out infinite alternate;
+}
+
+.eventum-orbital-particles {
+  position: absolute;
+  inset: 0;
+  opacity: 0.72;
+}
+
+.eventum-orbital-particles span {
+  position: absolute;
+  left: var(--particle-x);
+  top: var(--particle-y);
+  width: var(--particle-size);
+  height: var(--particle-size);
+  border-radius: 999px;
+  background: rgba(248, 245, 255, 0.72);
+  box-shadow:
+    0 0 12px rgba(216, 180, 254, 0.6),
+    0 0 28px rgba(34, 211, 238, 0.22);
+  animation: eventumParticleDrift var(--particle-duration) ease-in-out var(--particle-delay) infinite;
+}
+
+@keyframes eventumDotPulse {
+  0%,
+  100% {
+    opacity: 0.34;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes eventumBlobFloatA {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-5rem, 3rem, 0) scale(1.08);
+  }
+}
+
+@keyframes eventumBlobFloatB {
+  from {
+    transform: translate3d(0, 0, 0) scale(0.94);
+  }
+  to {
+    transform: translate3d(5rem, -3rem, 0) scale(1.04);
+  }
+}
+
+@keyframes eventumParticleDrift {
+  0%,
+  100% {
+    opacity: 0.22;
+    transform: translate3d(0, 0, 0) scale(0.8);
+  }
+  45% {
+    opacity: 0.82;
+    transform: translate3d(18px, -24px, 0) scale(1.1);
+  }
+  70% {
+    opacity: 0.5;
+    transform: translate3d(-12px, 16px, 0) scale(0.92);
+  }
 }
 
 .font-latin {
@@ -156,7 +276,7 @@ select {
   }
 
   .section-shell {
-    padding-block: clamp(4rem, 7vw, 8rem);
+    padding-block: clamp(3.5rem, 6.5vw, 7.5rem);
   }
 
   .eventum-focus {
@@ -199,5 +319,36 @@ select {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .eventum-cursor-glow {
+    opacity: 0.4;
+  }
+
+  .eventum-orbital-particles {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .eventum-dot-grid {
+    opacity: 0.34;
+    background-size: 30px 30px, 68px 68px;
+  }
+
+  .eventum-cursor-glow {
+    opacity: 0.45;
+    background:
+      radial-gradient(circle at 50% 12%, rgba(168, 85, 247, 0.18), transparent 210px),
+      radial-gradient(circle at 85% 22%, rgba(34, 211, 238, 0.1), transparent 170px);
+  }
+
+  .eventum-orbital-particles span:nth-child(n + 8) {
+    display: none;
+  }
+
+  .eventum-ambient-blob {
+    filter: blur(58px);
+    opacity: 0.26;
   }
 }

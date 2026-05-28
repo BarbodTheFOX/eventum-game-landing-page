@@ -11,7 +11,7 @@ export function SectionShell({
   children,
   id,
   className = "",
-  innerClassName = "max-w-7xl",
+  innerClassName = "max-w-[1240px]",
 }: SectionShellProps) {
   return (
     <section id={id} className={`section-shell relative px-5 md:px-8 ${className}`}>

@@ -11,6 +11,9 @@ type FloatingVisualProps = {
   height: number;
   priority?: boolean;
   className?: string;
+  imageClassName?: string;
+  fit?: "cover" | "contain";
+  objectPosition?: string;
   chips?: string[];
 };
 
@@ -21,6 +24,9 @@ export function FloatingVisual({
   height,
   priority = false,
   className = "",
+  imageClassName = "",
+  fit = "cover",
+  objectPosition = "object-center",
   chips = [],
 }: FloatingVisualProps) {
   const shouldReduceMotion = useReducedMotion();
@@ -45,7 +51,9 @@ export function FloatingVisual({
           width={width}
           height={height}
           priority={priority}
-          className="w-full rounded-[2.7rem] border border-[#D8B4FE]/25 shadow-[0_34px_120px_rgba(0,0,0,0.38),0_0_90px_rgba(124,45,255,0.18)]"
+          fit={fit}
+          objectPosition={objectPosition}
+          className={`w-full rounded-[2.7rem] border border-[#D8B4FE]/25 shadow-[0_34px_120px_rgba(0,0,0,0.38),0_0_90px_rgba(124,45,255,0.18)] ${imageClassName}`}
         />
       </motion.div>
       {chips.map((chip, index) => (
