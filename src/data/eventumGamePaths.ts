@@ -8,6 +8,8 @@ export type EventumGamePathConfig = {
   enemy: string;
   mission: string;
   image: string;
+  imageFit?: "cover" | "contain";
+  imagePosition?: string;
   accent: string;
   icon: string;
   description: string;
@@ -22,6 +24,8 @@ export const eventumGamePaths: Record<PathType, EventumGamePathConfig> = {
     enemy: "فکر بیش از حد / باز نگه داشتن تصمیم‌ها",
     mission: "تصمیم‌گیری با وضوح کافی و تبدیل فکر به حرکت",
     image: "strategist.png",
+    imageFit: "cover",
+    imagePosition: "object-[center_35%]",
     accent: "from-violet-500/20 to-cyan-400/20",
     icon: "S",
     description:
@@ -35,6 +39,8 @@ export const eventumGamePaths: Record<PathType, EventumGamePathConfig> = {
     enemy: "تعویق شروع / گیر کردن قبل از ورود به کار",
     mission: "شروع کردن، ادامه دادن و ساختن خروجی واقعی",
     image: "executor.png",
+    imageFit: "cover",
+    imagePosition: "object-[center_40%]",
     accent: "from-cyan-400/20 to-fuchsia-400/20",
     icon: "E",
     description:
@@ -48,6 +54,8 @@ export const eventumGamePaths: Record<PathType, EventumGamePathConfig> = {
     enemy: "پخش شدن بین چند مسیر / ایده بدون خروجی",
     mission: "نگه داشتن تمرکز و تبدیل ایده به نتیجه واقعی",
     image: "visionary.png",
+    imageFit: "cover",
+    imagePosition: "object-[center_40%]",
     accent: "from-fuchsia-400/20 to-violet-500/20",
     icon: "V",
     description:

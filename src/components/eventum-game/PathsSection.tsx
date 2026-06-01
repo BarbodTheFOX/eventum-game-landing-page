@@ -6,7 +6,7 @@ import { SectionTitle } from "./SectionTitle";
 
 export function PathsSection() {
   return (
-    <SectionShell>
+    <SectionShell innerClassName="max-w-[1240px]">
       <AnimatedReveal>
         <SectionTitle
           eyebrow="ARCHETYPES"
@@ -14,10 +14,16 @@ export function PathsSection() {
           text="هر مسیر یک دشمن اصلی و یک مأموریت عملی دارد؛ کارت‌ها فقط شکل متفاوتی از یک سیستم واحد هستند."
         />
       </AnimatedReveal>
-      <div className="grid items-stretch gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+      <div className="mx-auto mt-2 grid max-w-[1180px] items-stretch justify-items-center gap-7 md:grid-cols-2 lg:grid-cols-3 lg:gap-9">
         {orderedEventumGamePaths.map((path, index) => (
-          <AnimatedReveal key={path.type} delay={index * 0.08}>
-            <PathCard path={path} index={index} />
+          <AnimatedReveal
+            key={path.type}
+            delay={index * 0.08}
+            className={
+              index === 2 ? "md:col-span-2 md:justify-self-center lg:col-span-1" : ""
+            }
+          >
+            <PathCard path={path} />
           </AnimatedReveal>
         ))}
       </div>
