@@ -12,15 +12,7 @@ const config: Config = {
       fontFamily: {
         latin: ["var(--font-latin)"],
         persian: ["var(--font-persian)"],
-        sans: [
-          "var(--font-persian)",
-          "Vazirmatn",
-          "IRANSans",
-          "Segoe UI",
-          "Tahoma",
-          "Arial",
-          "sans-serif",
-        ],
+        sans: ["var(--font-persian)"],
       },
     },
   },

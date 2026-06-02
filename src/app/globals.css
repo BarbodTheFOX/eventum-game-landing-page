@@ -2,6 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Peyda";
+  src: url("/fonts/peyda/PeydaWebFaNum-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Peyda";
+  src: url("/fonts/peyda/PeydaWebFaNum-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Peyda";
+  src: url("/fonts/peyda/PeydaWebFaNum-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Peyda";
+  src: url("/fonts/peyda/PeydaWebFaNum-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Peyda";
+  src: url("/fonts/peyda/PeydaWebFaNum-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Peyda";
+  src: url("/fonts/peyda/PeydaWebFaNum-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #080012;
   --background-deep: #080012;
@@ -24,8 +72,8 @@
   --glass-border: rgba(216, 180, 254, 0.35);
   --glass-border-soft: rgba(255, 255, 255, 0.18);
   --focus-ring: rgba(192, 132, 252, 0.42);
-  --font-latin: "Poppins", "Inter", "Segoe UI", Arial, sans-serif;
-  --font-persian: "Vazirmatn", "IRANSans", "Segoe UI", Tahoma, Arial, sans-serif;
+  --font-latin: "Poppins", "Inter", system-ui, sans-serif;
+  --font-persian: "Peyda", "Vazirmatn", "IRANSans", "Tahoma", sans-serif;
   --mouse-x: 50vw;
   --mouse-y: 24vh;
 }

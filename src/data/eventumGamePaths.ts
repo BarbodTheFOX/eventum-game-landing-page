@@ -49,7 +49,7 @@ export const eventumGamePaths: Record<PathType, EventumGamePathConfig> = {
   visionary: {
     type: "visionary",
     name: "Visionary",
-    persianLabel: "چشم‌اندازساز",
+    persianLabel: "ایده‌پرداز",
     resultLabel: "✨ Visionary",
     enemy: "پخش شدن بین چند مسیر / ایده بدون خروجی",
     mission: "نگه داشتن تمرکز و تبدیل ایده به نتیجه واقعی",
