@@ -7,9 +7,8 @@ import { TestIntroSection } from "@/components/eventum-game/TestIntroSection";
 import { WhatIsGameSection } from "@/components/eventum-game/WhatIsGameSection";
 
 export const metadata: Metadata = {
-  title: "ایونتوم گیم | تست مسیر و چالش ۲۱ روزه",
-  description:
-    "ایونتوم گیم یک مسیر ۲۱ روزه برای شناخت الگوی ذهنی، شروع حرکت، انجام تسک‌های روزانه و ورود به یک بازی رشد واقعی است.",
+  title: "EVENTUM GAME - مسیر ۲۱ روزه",
+  description: "ایونتوم گیم؛ مسیر ۲۱ روزه شناخت، حرکت و رشد",
 };
 
 export default function EventumGamePage() {
